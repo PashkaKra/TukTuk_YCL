@@ -14,6 +14,8 @@ const AB_YAS_LINK = process.env.AB_YAS_LINK;
 const AB_YAS_ID = process.env.AB_YAS_ID;
 const AB_NAG_LINK = process.env.AB_NAG_LINK;
 const AB_NAG_ID = process.env.AB_NAG_ID;
+const AB_TER_LINK = process.env.AB_TER_LINK;
+const AB_TER_ID = process.env.AB_TER_ID;
 const LUNDA_RECH_LINK = process.env.LUNDA_RECH_LINK;
 const LUNDA_RECH_ID = process.env.LUNDA_RECH_ID;
 const bot = new TelegramApi(TOKEN, {polling: true});
@@ -41,7 +43,7 @@ const getDayData = async (item, page) => {
 	let bufData = "";
 	if(item !== 0){await page.click('[data-locator-date="'+dataLocatorDate()+'"]');}
 	try{
-		await page.waitForSelector(".time-interval-text", {timeout: 100000});
+		await page.waitForSelector(".time-interval-text", {timeout: 10000});
 		bufData = await page.evaluate(() => document.querySelector('app-time-list').innerText);
 		bufData = bufData.replace(/(\r\n|\n|\r)/gm, " ");
 		bufData = bufData.replace("Утро ", "\n<strong>🌇 Утро</strong>\n");
@@ -66,20 +68,22 @@ const start = async () => {
 }
 
 const sendRes = async () => {
-			console.log('bot started');
-			let scrapeD = await scrape(FRIENDS_LINK);
-			await bot.sendMessage(CHAT_ID, scrapeD, {message_thread_id: FRIENDS_ID, parse_mode: 'HTML'});
-			let scrapeT = await scrape(RACKETLON_LINK);
-			await bot.sendMessage(CHAT_ID, scrapeT, {message_thread_id: RACKETLON_ID, parse_mode: 'HTML'});
-			let scrapeY = await scrape(AB_YAS_LINK);
-			await bot.sendMessage(CHAT_ID, scrapeY, {message_thread_id: AB_YAS_ID, parse_mode: 'HTML'});
-			let scrapeD1 = await scrape(AB_NAG_LINK);
-			await bot.sendMessage(CHAT_ID, scrapeD1, {message_thread_id: AB_NAG_ID, parse_mode: 'HTML'});
-			//let scrapeT1 = await scrape(LUNDA_RECH_LINK);
-			//await bot.sendMessage(chatId, scrapeT1, {message_thread_id: LUNDA_RECH_ID, parse_mode: 'HTML'});
-			//div.ng-star-inserted:nth-child(8) app-staff-tile.master-clickable
-			//.masters-list > div:nth-child(2)
-			//div.ng-star-inserted
+	console.log('bot started');
+	let scrapeD = await scrape(FRIENDS_LINK);
+	await bot.sendMessage(CHAT_ID, scrapeD, {message_thread_id: FRIENDS_ID, parse_mode: 'HTML'});
+	let scrapeT = await scrape(RACKETLON_LINK);
+	await bot.sendMessage(CHAT_ID, scrapeT, {message_thread_id: RACKETLON_ID, parse_mode: 'HTML'});
+	let scrapeY = await scrape(AB_YAS_LINK);
+	await bot.sendMessage(CHAT_ID, scrapeY, {message_thread_id: AB_YAS_ID, parse_mode: 'HTML'});
+	let scrapeD1 = await scrape(AB_NAG_LINK);
+	await bot.sendMessage(CHAT_ID, scrapeD1, {message_thread_id: AB_NAG_ID, parse_mode: 'HTML'});
+	let scrapeT1 = await scrape(AB_TER_LINK);
+	await bot.sendMessage(CHAT_ID, scrapeT1, {message_thread_id: AB_TER_ID, parse_mode: 'HTML'});	
+	//let scrapeT1 = await scrape(LUNDA_RECH_LINK);
+	//await bot.sendMessage(chatId, scrapeT1, {message_thread_id: LUNDA_RECH_ID, parse_mode: 'HTML'});
+	//div.ng-star-inserted:nth-child(8) app-staff-tile.master-clickable
+	//.masters-list > div:nth-child(2)
+	//div.ng-star-inserted
 }
 
 //const test = () => {console.log("test");}
