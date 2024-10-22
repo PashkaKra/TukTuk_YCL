@@ -18,6 +18,9 @@ const AB_TER_LINK = process.env.AB_TER_LINK;
 const AB_TER_ID = process.env.AB_TER_ID;
 const LUNDA_RECH_LINK = process.env.LUNDA_RECH_LINK;
 const LUNDA_RECH_ID = process.env.LUNDA_RECH_ID;
+const CRON_T1 = process.env.CRON_T1;
+const CRON_T2 = process.env.CRON_T2;
+const CRON_T3 = process.env.CRON_T3;
 const bot = new TelegramApi(TOKEN, {polling: true});
 
 const weekDay = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
@@ -60,8 +63,6 @@ const getDayData = async (item, page) => {
 
 const start = async () => {
 	bot.on("message", async (msg) => {
-		//const text = msg.text;
-    //const chatId = msg.chat.id;
     console.log(msg);
 		if(msg.text === "/getMeData"){await sendRes();}
 	});
@@ -86,18 +87,16 @@ const sendRes = async () => {
 	//div.ng-star-inserted
 }
 
-//const test = () => {console.log("test");}
-
 start();
-cron.schedule('0 7 * * *', async () => {
+cron.schedule('0 '+CRON_T1+' * * *', async () => {
 	console.log("cron work 7:00");
 	await sendRes();
 });
-cron.schedule('0 15 * * *', async () => {
+cron.schedule('0 '+CRON_T2+' * * *', async () => {
 	console.log("cron work 15:00");
 	await sendRes();
 });
-cron.schedule('0 23 * * *', async () => {
+cron.schedule('0 '+CRON_T3+' * * *', async () => {
 	console.log("cron work 23:00");
 	await sendRes();
 });
