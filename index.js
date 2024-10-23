@@ -40,8 +40,9 @@ let scrape = async (link) => {
 const getDayData = async (item, page) => {
 	let date = new Date();
 	date.setDate(date.getDate()+item);
-	const dataLocatorDate = () => date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
-	const dateForPost = () => date.getDate()+"."+(date.getMonth()+1)+" "+weekDay[date.getDay()];
+	const ZERD = date.getDate()<10?"0":"";
+	const dataLocatorDate = () => date.getFullYear()+"-"+(date.getMonth()+1)+"-"+ZERD+date.getDate();
+	const dateForPost = () => ZERD+date.getDate()+"."+(date.getMonth()+1)+" "+weekDay[date.getDay()];
 	let dayData = "\n\n<strong>📆 "+dateForPost()+"</strong>";
 	let bufData = "";
 	if(item !== 0){await page.click('[data-locator-date="'+dataLocatorDate()+'"]');}
@@ -54,7 +55,7 @@ const getDayData = async (item, page) => {
 		bufData = bufData.replace("Вечер ", "\n<strong>🌃 Вечер</strong>\n");
 	}
 	catch(err){
-		bufData += "\nСлоты закончились";
+		bufData += "\nВ этот день нет свободного времени";
 		console.log(err);
 	}
 	dayData += bufData;
