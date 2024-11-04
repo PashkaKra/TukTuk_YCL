@@ -16,6 +16,8 @@ const AB_NAG_LINK = process.env.AB_NAG_LINK;
 const AB_NAG_ID = process.env.AB_NAG_ID;
 const AB_TER_LINK = process.env.AB_TER_LINK;
 const AB_TER_ID = process.env.AB_TER_ID;
+const AB_KUN_LINK = process.env.AB_KUN_LINK;
+const AB_KUN_ID = process.env.AB_KUN_ID;
 const LUNDA_RECH_LINK = process.env.LUNDA_RECH_LINK;
 const LUNDA_RECH_ID = process.env.LUNDA_RECH_ID;
 const CRON_T1 = process.env.CRON_T1;
@@ -80,7 +82,9 @@ const sendRes = async () => {
 	let scrapeD1 = await scrape(AB_NAG_LINK);
 	await bot.sendMessage(CHAT_ID, scrapeD1, {message_thread_id: AB_NAG_ID, parse_mode: 'HTML'});
 	let scrapeT1 = await scrape(AB_TER_LINK);
-	await bot.sendMessage(CHAT_ID, scrapeT1, {message_thread_id: AB_TER_ID, parse_mode: 'HTML'});	
+	await bot.sendMessage(CHAT_ID, scrapeT1, {message_thread_id: AB_TER_ID, parse_mode: 'HTML'});
+	let scrapeK1 = await scrape(AB_KUN_LINK);
+	await bot.sendMessage(CHAT_ID, scrapeK1, {message_thread_id: AB_KUN_ID, parse_mode: 'HTML'});	
 	//let scrapeT1 = await scrape(LUNDA_RECH_LINK);
 	//await bot.sendMessage(chatId, scrapeT1, {message_thread_id: LUNDA_RECH_ID, parse_mode: 'HTML'});
 	//div.ng-star-inserted:nth-child(8) app-staff-tile.master-clickable
